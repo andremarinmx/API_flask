@@ -96,4 +96,4 @@ if __name__ == '__main__':
     app.config.from_object(config['development'])
     print(app.config['MYSQL_HOST'])
     app.register_error_handler(404, pagina_no_encontrada)
-    app.run()
+    app.run(debug='0.0.0.0', port=4000)
