@@ -1,18 +1,17 @@
+"""__auhor__ : André Marín Alonso"""
+"""__copyright__ :Copyright (C) 2004 Author Name"""
+"""__version__ : 1.0"""
 from flask import Flask, jsonify, request
 from flask_mysqldb import MySQL
 from config import config
 
-
 app = Flask(__name__)
 
-
 conexion = MySQL(app)
-
 
 @app.route('/')
 def index():
     return "Bienvenidos"
-
 
 @app.route('/materias', methods=['GET'])
 def listar_materias():
@@ -28,8 +27,9 @@ def listar_materias():
             materias.append(materia)
         return jsonify({'cursos': materias, 'mensaje': "Materias listadas."})
     except Exception as ex:
+        #Excepción jsonify
+        """Se utiliza para evitar crashear la página web dando una página 400"""
         return jsonify({'mensaje': "Error"})
-
 
 @app.route('/materia/<codigo>', methods=['GET'])
 def leer_materia(codigo):
@@ -46,8 +46,9 @@ def leer_materia(codigo):
         else:
             return jsonify({'mensaje': "Materias no encontrada."})
     except Exception as ex:
+        #Excepción jsonify
+        """Se utiliza para evitar crashear la página web dando una página 400"""
         return jsonify({'mensaje': "Error"})
-
 
 @app.route('/materia/<codigo>', methods=['POST'])
 def registrar_materia(codigo):
@@ -61,7 +62,8 @@ def registrar_materia(codigo):
         return jsonify({'mensaje': "Materia registrada"})
     except Exception as ex:
         return jsonify({'mensaje': "Error"})
-
+        #Excepción jsonify
+        """Se utiliza para evitar crashear la página web dando una página 400"""
 
 @app.route('/materias/<codigo>', methods=['DELETE'])
 def eliminar_materia(codigo):
@@ -73,7 +75,8 @@ def eliminar_materia(codigo):
         return jsonify({'mensaje': "Curso eliminado."})
     except Exception as ex:
         return jsonify({'mensaje': "Error"})
-
+        #Excepción jsonify
+        """Se utiliza para evitar crashear la página web dando una página 400"""
 
 @app.route('/materias/<codigo>', methods=['PUT'])
 def actualizar_materia(codigo):
@@ -86,11 +89,13 @@ def actualizar_materia(codigo):
         return jsonify({'mensaje': "Materia actualizada"})
     except Exception as ex:
         return jsonify({'mensaje': "Error"})
-
+        #Excepción jsonify
+        """Se utiliza para evitar crashear la página web dando una página 400"""
 
 def pagina_no_encontrada(error):
     return "<h1>La pagina que buscas no existe</h1>", 404
-
+        #Función para error 404
+        """Se utiliza para evitar crashear la página web dando una página 404"""
 
 if __name__ == '__main__':
     app.config.from_object(config['development'])
